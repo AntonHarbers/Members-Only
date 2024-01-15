@@ -6,7 +6,29 @@ block content
 
   if user
 
+    a(href='/messages/new') Create a new Message
+
+    if user.membership_status == "member"
+      a(href="/membership") Become admin  
+    else 
+      a(href="/membership") Become a member
+
+
     a(href='/log-out') Log Out
+
+    if messages 
+      for message in messages 
+        p Title: #{message.title}
+        p Content: #{message.content}
+
+        if user.membership_status != "user"
+          p Author: #{message.author.username}
+          p Timestamp: #{message.timestamp_formatted}
+
+        if user.membership_status == "admin"
+          form(method="POST" action="/messages/delete")
+            input(type="hidden" name='messageId' value=message._id)
+            button(type='submit') Delete Post
 
   else 
     form(method="POST" action="/log-in")
@@ -16,7 +38,9 @@ block content
       input(type="password" name='password' required placeholder="Enter your password")  
       button(type=submit) Log In
 
-  a(href="/sign-up") Sign Up Here 
+    a(href="/sign-up") Sign Up Here 
+
+
 
 
 

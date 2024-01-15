@@ -8,7 +8,24 @@ const passport = require('passport');
 
 require('dotenv').config();
 
-exports.index = [asyncHandler(async (req, res, next) => {})];
+exports.index = [
+  asyncHandler(async (req, res, next) => {
+    // get all messages
+
+    const messages = await Message.find({})
+      .sort({ timestamp: 1 })
+      .populate('author')
+      .exec();
+
+    // give them to the homepage
+    console.log(req.user);
+    res.render('index', {
+      title: 'Members Only',
+      user: req.user,
+      messages: messages,
+    });
+  }),
+];
 
 exports.get_sign_up = [
   asyncHandler(async (req, res, next) => {
@@ -98,6 +115,15 @@ exports.post_log_in = [
   }),
 ];
 
+exports.get_log_out = (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
+};
+
 exports.get_membership = [
   asyncHandler(async (req, res, next) => {
     res.render('membership', { title: 'Membership', user: req.user });
@@ -110,7 +136,11 @@ exports.post_membership = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res.render('membership', { title: 'Membership', errors: errors.array() });
+      res.render('membership', {
+        title: 'Membership',
+        errors: errors.array(),
+        user: req.user,
+      });
     } else {
       const user = await User.findById(req.user.id).exec();
 
@@ -130,11 +160,32 @@ exports.post_membership = [
   }),
 ];
 
-exports.get_log_out = (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
+exports.post_admin = [
+  body('code', 'Wrong Code').equals(process.env.ADMIN_CODE),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.render('membership', {
+        title: 'Membership',
+        errors: errors.array(),
+        user: req.user,
+      });
+    } else {
+      const user = await User.findById(req.user.id).exec();
+
+      if (user === null) {
+        const err = new Error('User not found');
+        err.status = 404;
+        return next(err);
+      }
+
+      await User.findByIdAndUpdate(
+        req.user.id,
+        { membership_status: 'admin' },
+        {}
+      );
+      res.render('index', { title: 'Members Only' });
     }
-    res.redirect('/');
-  });
-};
+  }),
+];

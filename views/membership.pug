@@ -1,15 +1,27 @@
 extends layout 
 
 block content 
-    h1=title 
 
     if user 
-        form(method="POST")
-            label(for="code") Membership Code: 
-            input(type="text" name='code' placeholder='Enter code here..' required)
-            button(type=submit) Become a member 
+
+        h1=title 
+
+        a(href="/") Back to Home 
+
+        if user.membership_status == "user"
+            form(method="POST")
+                label(for="code") Membership Code: 
+                input(type="text" name='code' placeholder='Enter code here..' required)
+                button(type=submit) Become a member 
+        if user.membership_status == "member"
+            form(method="POST" action="/admin")
+                label(for="code") Admin Code: 
+                input(type="text" name='code' placeholder='Enter code here...' required)
+                button(type=submit) Become an Admin
+
     else 
         h1 Please sign in to view this page
+        a(href="/") Login Here 
 
     if errors
         ul

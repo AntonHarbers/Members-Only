@@ -1,0 +1,26 @@
+extends layout 
+
+block content 
+
+
+    if user 
+        h1=title 
+
+        p Hello #{user.first_name}, please fill in a title and some content for your message: 
+
+        form(method="POST") 
+            label(for="title") Title 
+            input(type="text" name="title" required placeholder="Message title...") 
+            label(for="content") Content 
+            textarea(name="content" cols="30" rows="10" placeholder="Content title..." required)
+            button(type=submit) Submit  
+
+    else 
+
+        p Please log in to view this page 
+        a(href="/") Login Here 
+
+    if errors
+        ul
+            for error in errors
+                li!= error.msg 
