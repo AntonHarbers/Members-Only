@@ -1,0 +1,17 @@
+extends layout 
+
+block content 
+    h1=title 
+
+    if user 
+        form(method="POST")
+            label(for="code") Membership Code: 
+            input(type="text" name='code' placeholder='Enter code here..' required)
+            button(type=submit) Become a member 
+    else 
+        h1 Please sign in to view this page
+
+    if errors
+        ul
+            for error in errors
+                li!= error.msg 

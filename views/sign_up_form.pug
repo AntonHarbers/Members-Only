@@ -1,0 +1,22 @@
+extends layout 
+
+block content 
+    h1 Sign Up to Members Only 
+    form(method="POST")
+        label(for='firstName') First Name 
+        input(type="text" name='firstName' placeholder="Enter your first name..." required) 
+        label(for='firstName') Last Name 
+        input(type="text" name='lastName' placeholder="Enter your last name..." required) 
+        label(for="username") Username 
+        input(type="text" name="username" placeholder="Enter username..." required)
+        label(for="password") Password 
+        input(type="password" name="password" required)
+        label(for="confirmPassword") Confirm Password 
+        input(type="password" name="confirmPassword" required)
+        button(type=submit) Sign Up 
+
+
+    if errors
+        ul
+            for error in errors
+                li!= error.msg 

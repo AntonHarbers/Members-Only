@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  if user
+
+    a(href='/log-out') Log Out
+
+  else 
+    form(method="POST" action="/log-in")
+      label(for="username") Username 
+      input(type="text" name='username' required placeholder="Enter your username")
+      label(for="password") Password 
+      input(type="password" name='password' required placeholder="Enter your password")  
+      button(type=submit) Log In
+
+  a(href="/sign-up") Sign Up Here 
+
+
+
+  if errors
+    ul
+      for error in errors
+        li!= error.msg 

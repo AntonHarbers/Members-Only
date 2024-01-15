@@ -10,6 +10,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const helmet = require('helmet');
 const compression = require('compression');
 const mongoose = require('mongoose');
+const User = require('./models/user');
 
 require('dotenv').config();
 
@@ -31,7 +32,7 @@ async function main() {
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 app.use(session({ secret: 'Mainly', resave: false, saveUninitialized: true }));
 
