@@ -78,7 +78,7 @@ passport.deserializeUser(async (id, done) => {
 });
 
 // Middleware Chain
-
+app.set('trust proxy', 1);
 app.use(limiter);
 app.use(passport.initialize());
 app.use(passport.session());

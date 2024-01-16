@@ -8,7 +8,7 @@
     "serverstart": "SET DEBUG=members-only:* & npm run devstart"
   },
   "engines": {
-    "node": ">= 20.10.0"
+    "node": "16.x"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -29,10 +29,10 @@
     "morgan": "~1.9.1",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "dotenv": "^16.3.1"
   },
   "devDependencies": {
-    "dotenv": "^16.3.1",
     "nodemon": "^3.0.2"
   }
 }
