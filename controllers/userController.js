@@ -8,25 +8,6 @@ const passport = require('passport');
 
 require('dotenv').config();
 
-exports.index = [
-  asyncHandler(async (req, res, next) => {
-    // get all messages
-
-    const messages = await Message.find({})
-      .sort({ timestamp: 1 })
-      .populate('author')
-      .exec();
-
-    // give them to the homepage
-    console.log(req.user);
-    res.render('index', {
-      title: 'Members Only',
-      user: req.user,
-      messages: messages,
-    });
-  }),
-];
-
 exports.get_sign_up = [
   asyncHandler(async (req, res, next) => {
     res.render('sign_up_form', { title: 'Sign Up' });
@@ -83,10 +64,6 @@ exports.post_sign_up = [
   }),
 ];
 
-exports.get_log_in = (req, res, next) => {
-  res.redirect('/');
-};
-
 exports.post_log_in = [
   body('username', 'Username must not be empty')
     .trim()
@@ -115,19 +92,21 @@ exports.post_log_in = [
   }),
 ];
 
-exports.get_log_out = (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    res.redirect('/');
-  });
-};
+exports.get_log_out = [
+  (req, res, next) => {
+    req.logout((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect('/');
+    });
+  },
+];
 
 exports.get_membership = [
-  asyncHandler(async (req, res, next) => {
+  (req, res, next) => {
     res.render('membership', { title: 'Membership', user: req.user });
-  }),
+  },
 ];
 
 exports.post_membership = [
@@ -141,6 +120,7 @@ exports.post_membership = [
         errors: errors.array(),
         user: req.user,
       });
+      return;
     } else {
       const user = await User.findById(req.user.id).exec();
 
@@ -150,12 +130,13 @@ exports.post_membership = [
         return next(err);
       }
 
-      await User.findByIdAndUpdate(
+      const updatedUser = await User.findByIdAndUpdate(
         req.user.id,
         { membership_status: 'member' },
         {}
       );
-      res.render('index', { title: 'Members Only' });
+
+      res.redirect('/');
     }
   }),
 ];
@@ -180,12 +161,12 @@ exports.post_admin = [
         return next(err);
       }
 
-      await User.findByIdAndUpdate(
+      const updatedUser = await User.findByIdAndUpdate(
         req.user.id,
         { membership_status: 'admin' },
         {}
       );
-      res.render('index', { title: 'Members Only' });
+      res.redirect('/');
     }
   }),
 ];
