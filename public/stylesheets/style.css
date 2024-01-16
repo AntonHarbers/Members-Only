@@ -1,8 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Oswald', sans-serif;
+  width: 100vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  font-size: 1.5rem;
+  font-weight: 500;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem;
+}
+
+input {
+  font-size: 1.5rem;
+  border-radius: 10px;
+  padding: 2px;
+  text-align: center;
+  border: 0.5px solid rgba(0, 0, 0, 0.175);
+  padding: 0.5rem;
+}
+
+textarea {
+  font-size: 1.5rem;
+  border-radius: 10px;
+  resize: none;
+  padding: 0.5rem;
+  border: 0.5px solid rgba(0, 0, 0, 0.175);
+}
+
+button {
+  font-size: 1.5rem;
+  padding: 0.5rem 2rem;
+  margin: 0.5rem;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  background-color: rgb(1, 125, 125);
+  border: 0px;
+  color: white;
+  transition: all 0.1s linear;
+}
+
+button:hover,
+button:focus {
+  background-color: rgb(0, 142, 142);
+  scale: 1.05;
+}
+
+button:active {
+  scale: 0.95;
+  background-color: rgb(0, 111, 111);
+}
+
+.sign-up-button {
+  position: absolute;
+  bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.link {
+  font-size: 1.5rem;
+  margin: 1rem;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  color: red;
+  font-size: 1.2rem;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
+.header {
+  width: 95vw;
+  border-bottom: 1px solid black;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.navbar {
+  display: flex;
+  gap: 1rem;
+}
+
+.navlink {
+  text-decoration: none;
+  font-size: 2rem;
+  color: rgb(1, 125, 125);
+  font-weight: 500;
+}
+
+.navlink:hover {
+  text-decoration: underline;
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.081);
+  justify-content: center;
+  border-radius: 10px;
+  align-content: center;
+  text-align: start;
+  width: 600px;
+  padding: 1rem;
+}
+
+.message {
+  font-size: 2rem;
+  width: 100%;
+  user-select: all;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 2.2rem;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.logolink {
+  text-decoration: none;
+  color: rgb(1, 125, 125);
+  cursor: pointer;
+}
+
+.logolink:hover {
+  text-decoration: underline;
 }

@@ -1,34 +1,33 @@
 extends layout
 
-block content
-  h1= title
-  p Welcome to #{title}
+block navbar 
 
   if user
+    div.navbar
+      a.navlink(href='/messages/new') Create a new Message
 
-    a(href='/messages/new') Create a new Message
+      if user.membership_status == "member"
+        a.navlink(href="/membership") Become admin  
+      else 
+        a.navlink(href="/membership") Become a member
 
-    if user.membership_status == "member"
-      a(href="/membership") Become admin  
-    else 
-      a(href="/membership") Become a member
+      a.navlink(href='/log-out') Log Out
 
+block content
 
-    a(href='/log-out') Log Out
-
-    if messages 
-      for message in messages 
-        p Title: #{message.title}
-        p Content: #{message.content}
+  if messages 
+    for message in messages 
+      div.message-container
+        p.message.title #{message.title}
+        p.message.content #{message.content}
 
         if user.membership_status != "user"
-          p Author: #{message.author.username}
-          p Timestamp: #{message.timestamp_formatted}
+          p.message.author Posted on #{message.timestamp_formatted} by #{message.author.username} 
 
-        if user.membership_status == "admin"
-          form(method="POST" action="/messages/delete")
-            input(type="hidden" name='messageId' value=message._id)
-            button(type='submit') Delete Post
+      if user.membership_status == "admin"
+        form(method="POST" action="/messages/delete")
+          input(type="hidden" name='messageId' value=message._id)
+          button(type='submit') Delete Post
 
   else 
     form(method="POST" action="/log-in")
@@ -38,7 +37,7 @@ block content
       input(type="password" name='password' required placeholder="Enter your password")  
       button(type=submit) Log In
 
-    a(href="/sign-up") Sign Up Here 
+    a.sign-up-button(href="/sign-up") Sign Up Here 
 
 
 

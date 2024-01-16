@@ -1,12 +1,17 @@
 extends layout 
 
+block navbar 
+
+    if user
+        div.navbar
+            a.navlink(href='/messages/new') New Post
+            a.navlink(href='/log-out') Log Out
+
 block content 
 
     if user 
 
-        h1=title 
-
-        a(href="/") Back to Home 
+        h2 #{title} : #{user.membership_status.toUpperCase()}
 
         if user.membership_status == "user"
             form(method="POST")
@@ -20,8 +25,8 @@ block content
                 button(type=submit) Become an Admin
 
     else 
-        h1 Please sign in to view this page
-        a(href="/") Login Here 
+        h2 Please sign in to view this page
+        a.link(href="/") Login Here 
 
     if errors
         ul

@@ -1,7 +1,7 @@
 extends layout 
 
 block content 
-    h1 Sign Up to Members Only 
+    h2 Sign Up
     form(method="POST")
         label(for='firstName') First Name 
         input(type="text" name='firstName' placeholder="Enter your first name..." required) 
@@ -14,7 +14,7 @@ block content
         label(for="confirmPassword") Confirm Password 
         input(type="password" name="confirmPassword" required)
         button(type=submit) Sign Up 
-
+    a.link(href="/") Back Home 
 
     if errors
         ul

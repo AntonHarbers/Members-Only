@@ -105,7 +105,7 @@ exports.get_log_out = [
 
 exports.get_membership = [
   (req, res, next) => {
-    res.render('membership', { title: 'Membership', user: req.user });
+    res.render('membership', { title: 'Membership Status', user: req.user });
   },
 ];
 

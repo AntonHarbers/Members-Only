@@ -1,18 +1,27 @@
 extends layout 
 
+block navbar 
+
+    if user
+        div.navbar
+            if user.membership_status == "member"
+                a.navlink(href="/membership") Become admin  
+            else 
+                a.navlink(href="/membership") Become a member
+
+            a.navlink(href='/log-out') Log Out
+
 block content 
 
 
     if user 
-        h1=title 
-
-        p Hello #{user.first_name}, please fill in a title and some content for your message: 
+        h2=title 
 
         form(method="POST") 
             label(for="title") Title 
-            input(type="text" name="title" required placeholder="Message title...") 
+            input(type="text" name="title" required placeholder="Title...") 
             label(for="content") Content 
-            textarea(name="content" cols="30" rows="10" placeholder="Content title..." required)
+            textarea(name="content" cols="30" rows="10" placeholder="Content..." required)
             button(type=submit) Submit  
 
     else 
